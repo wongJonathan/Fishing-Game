@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Fish.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Images/fishTile_073.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 30.0073
+
+[node name="Fish" type="Area2D" index="0"]
+
+editor/display_folded = true
+position = Vector2( 535.058, 257.997 )
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+script = ExtResource( 1 )
+speed = 50
+maxDistance = 50
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 2 )
+region_rect = Rect2( -80, 280, 950, 430 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 1 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="2"]
+
+position = Vector2( 0.99478, 2.18815 )
+scale = Vector2( 2.73718, 2.99234 )
+rect = Rect2( -10, -10, 20, 20 )
+
+[node name="TargetTimer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 3.0
+one_shot = false
+autostart = false
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+
+[connection signal="timeout" from="TargetTimer" to="." method="_on_new_target_timeout"]
+
+
